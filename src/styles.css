@@ -2,6 +2,7 @@
     box-sizing: border-box;
 }
 
+
 body {
     margin: 0;
     background: linear-gradient(to right, #f06edb, #1158f0);
@@ -10,7 +11,7 @@ body {
 .calculator-grid {
     display: grid;
     margin-top: 2rem;
-    grid-template-columns: repeat(4, 6rem);
+    grid-template-columns: repeat(4, 8rem);
     grid-template-rows: minmax(7rem, auto) repeat(5, 6rem);
     justify-content: center;
 }
@@ -23,13 +24,15 @@ body {
     border-radius: 3%;
     outline: none;
     background-color: rgba(255,255,255,.75);
-
 }
 
 .calculator-grid > button:hover,
-.calculator-grid > button:focus {
+.calculator-grid > button:focus,
+.goCrazy > button:hover,
+.goCrazy > button:focus,
+.goCrazy2 > button:hover,
+.goCrazy2 > button:focus  {
     background-color: rgba(255,255,255,.9);
-
 }
 
 .span-two{
@@ -59,3 +62,83 @@ body {
     font-size: 2.5rem;
 
 }
+
+
+.goCrazy,.goCrazy2{
+    grid-column: span 4;
+    display: flex;
+    justify-content: center
+}
+.goCrazy > button{
+    width: 50%;
+    height: 45%;
+    margin-top: 100px;
+    cursor: pointer;
+    font-size: 2rem;
+    border: 1px solid white;
+    color: black;
+    border-radius: 2%;
+    outline: none;
+    background-color: rgba(255,255,255,.75);
+}
+
+.goCrazy2 > button{
+    width: 50%;
+    height: 45%;
+    margin-top: 100px;
+    cursor: pointer;
+    font-size: 2rem;
+    border: 1px solid white;
+    color: black;
+    border-radius: 2%;
+    outline: none;
+    background-color: rgba(255, 5, 255, 0.75);
+}
+
+.goCrazy2 > button {
+    position: relative;
+    width: 250px;
+    height:100px;
+    background-image: 
+      linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet); 
+    cursor: pointer;
+  }
+  
+  .goCrazy2 > button:before {
+    content:"";
+    position: absolute;
+    width: 240px;
+    height: 90px;
+    background-color: black;
+    top:5px;
+    left:5px;
+  }
+  
+  .goCrazy2 >button:after {
+    content:"GO NORMAL :(";
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top:50%;
+    left:50%;
+    font-family: arial;
+    font-weight: 900;
+    font-size: 25px;
+    background-image: 
+      linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet); 
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;  
+  }
+  
+  @keyframes move {
+    to {
+      background-position: 2500vh;
+    }
+  }
+  
+  .goCrazy2 > button:hover {
+    animation: move 30s linear infinite;
+  }
+  
+  .goCrazy2 > button:hover:after {
+    animation: move 29s linear infinite;
+  }

@@ -1,4 +1,5 @@
 import "./styles.css"
+import React, { useState } from "react";
 import { useReducer} from "react"
 import DigitButton from "./digitButton"
 import OperationButton from "./OperationButton"
@@ -8,7 +9,8 @@ export const ACTIONS = {
   CHOOSE_OPERATION: 'choose_operation',
   CLEAR: 'clear',
   DELETE_DIGIT: 'delete_digit',
-  EVALUATE: 'evalate'
+  EVALUATE: 'evalate',
+  GO_CRAZY: 'crazy'
 }
 
 function reducer(state, {type, payload}){
@@ -29,11 +31,18 @@ function reducer(state, {type, payload}){
     }
     case ACTIONS.CLEAR:
       return {};
-    return {
+    case ACTIONS.GO_CRAZY:
+      if(state.statechanged==null){
+      return{
+        ...state,
+        style: "goCrazy2",
+        currentOperand: (Math.random()*9999999).toString(),
+        statechanged: true
+      }
+    } else return{
       ...state,
-      previousOperand: evaluate(state),
-      operation: payload.operation,
-      currentOperand: null
+      style: "goCrazy",
+      statechanged: null
     }
     case ACTIONS.CHOOSE_OPERATION:
       if (state.currentOperand == null && state.previousOperand == null) return state
@@ -126,10 +135,11 @@ function formatOperand(operand){
 }
 
 function App() {
-  const [{currentOperand, previousOperand, operation}, dispatch] = useReducer(
+  const [{currentOperand, previousOperand, operation,style}, dispatch] = useReducer(
     reducer,
-     {}
+     {style: "goCrazy"}
   );
+
   return (
     <div className="calculator-grid">
       <div className="output">
@@ -154,6 +164,9 @@ function App() {
       <DigitButton digit="." dispatch={dispatch}/>
       <DigitButton digit="0" dispatch={dispatch}/>
       <button className="span-two" onClick={() => dispatch({type: ACTIONS.EVALUATE})}>=</button>
+      <div className={style}>
+        <button onClick={() => dispatch({type: ACTIONS.GO_CRAZY})}>Go crazy!</button>
+      </div>
     </div>
   )
 }
